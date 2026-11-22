@@ -105,9 +105,12 @@ plt.rcParams.update({
     "axes.titleweight": "bold",
 })
 
-DATA_PATH = "modeling_table_final.csv"   # ← change if file is elsewhere
-PLOTS_DIR = "plots"
-import os; os.makedirs(PLOTS_DIR, exist_ok=True)
+# Path configuration (resolves project root whether run from root or src/)
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) if os.path.basename(os.path.dirname(os.path.abspath(__file__))) == "src" else os.path.abspath(".")
+DATA_PATH = os.path.join(BASE_DIR, "data", "modeling_table_final.csv") if os.path.exists(os.path.join(BASE_DIR, "data", "modeling_table_final.csv")) else "data/modeling_table_final.csv"
+PLOTS_DIR = os.path.join(BASE_DIR, "plots")
+os.makedirs(PLOTS_DIR, exist_ok=True)
 
 print("=" * 60)
 print("CITY COMPLAINT PREDICTION — PIPELINE STARTING")
